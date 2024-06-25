@@ -169,7 +169,7 @@ custom_entries_view.open = function(self, offset, entries)
   width = width + self.column_width.menu + 1
   width = width + self.column_width.num
 
-  local height = vim.api.nvim_get_option('pumheight')
+  local height = vim.api.nvim_get_option_value('pumheight', {})
   height = height ~= 0 and height or #self.entries
   height = math.min(height, #self.entries)
 
