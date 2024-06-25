@@ -144,7 +144,7 @@ custom_entries_view.open = function(self, offset, entries)
     if view.dup == 1 or not dedup[e.completion_item.label] then
       dedup[e.completion_item.label] = true
       for _, field in ipairs(config.get().formatting.fields) do
-        self.column_width[field] = math.max(self.column_width[field], view[field].width)
+        self.column_width[field] = math.max(self.column_width[field], (view[field] and view[field].width or 0))
       end
       table.insert(self.entries, e)
       table.insert(lines, ' ')
@@ -160,7 +160,7 @@ custom_entries_view.open = function(self, offset, entries)
   else
     vim.api.nvim_buf_set_lines(entries_buf, 0, -1, false, lines)
   end
-  vim.api.nvim_buf_set_option(entries_buf, 'modified', false)
+  vim.api.nvim_set_option_value("modified", false, { buf = entries_buf })
 
   local width = 0
   width = width + 1
